@@ -21,7 +21,7 @@ public class MyTest5 {
 		// 初始化一个接口的时候，并不会先初始化他的父接口，删掉了编译后的class文件无法运行只是说jvm进行了 加载，然后我们通过定义静态的成员 对象的匿名对象 可以看到初始化的过程
 		// 最终只是打印了MyParent5_1中的数据 因此 没有初始化的父接口们。
 		System.out.println(MyParent5_1.THREAD);
-	}
+	};
 }
 
 interface MyGrandpa {
