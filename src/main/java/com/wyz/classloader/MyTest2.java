@@ -1,4 +1,4 @@
-package com.wyz.jvm;
+package com.wyz.classloader;
 
 public class MyTest2 {
     public static void main(String[] args) {

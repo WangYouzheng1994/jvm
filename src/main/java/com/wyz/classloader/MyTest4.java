@@ -1,4 +1,4 @@
-package com.wyz.jvm;
+package com.wyz.classloader;
 
 /**
  * 数组的类型是运行期决定的。并且不会触发引用类型的主动使用，也就不会触发初始化
