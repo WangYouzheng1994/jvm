@@ -52,17 +52,21 @@ public class MyTest16 extends ClassLoader {
 	 */
 	@Override
 	protected Class<?> findClass(String className) throws ClassNotFoundException {
+		System.out.println("findClass invoked :" + className);
+		System.out.println("class loader name : " + this.classLoaderName);
 		byte[] data = this.loadClassData(className);
 		return this.defineClass(className, data, 0, data.length);
 	}
 
-	private byte[] loadClassData(String name) {
+	private byte[] loadClassData(String className) {
 		InputStream in = null;
 		byte[] data = null;
 		ByteArrayOutputStream byteArrayOutputStream = null;
 
+		className = className.replace(".", "/"); // 包名转换成路径名，把.改成/
 		try {
-			in = new FileInputStream(new File(name + this.fileExtention));
+			// in = new FileInputStream(new File(className + this.fileExtention));
+			in = new FileInputStream(new File(this.path + className + this.fileExtention));
 			byteArrayOutputStream = new ByteArrayOutputStream();
 
 			int ch = 0;
@@ -85,11 +89,19 @@ public class MyTest16 extends ClassLoader {
 
 	public static void main(String[] args) throws Exception {
 		MyTest16 loader1 = new MyTest16("loader1");
-		test(loader1);
+		loader1.setPath("E:\\workspace-github\\jvm\\out\\production\\classes");
+
+		Class<?> clazz = loader1.loadClass("com.wyz.classloader.MyTest1"); // 这个地方加载的是class文件。 从classpath读取的 所以现在这个读取 不是Mytest16里面的classloader 而是appclassloader加载的。
+		System.out.println("class: " + clazz.hashCode());
+		Object o = clazz.newInstance();
+		System.out.println(o);
+
+		// test(loader1);
 	}
 
 	public static void test(ClassLoader classLoader) throws  Exception {
 		Class<?> clazz = classLoader.loadClass("com.wyz.classloader.MyTest1"); // 这个地方加载的是class文件。 从classpath读取的 所以现在这个读取 不是Mytest16里面的classloader 而是appclassloader加载的。
+		System.out.println("class: " + clazz);
 		Object o = clazz.newInstance();
 		System.out.println(o);
 	}
