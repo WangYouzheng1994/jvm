@@ -15,14 +15,16 @@ import java.time.chrono.IsoChronology;
  */
 public class MyTest16 extends ClassLoader {
 	private String classLoaderName;
-
-	// 指定父类加载器
-
 	private final String fileExtention = ".class";
+	private String path;// 加载的路径。
 
 	public MyTest16(String classLoaderName) {
 		super(); // 查看源码得知，该方法是将系统类加载器作为我们自定义加载器的双亲(父)加载器
 		this.classLoaderName = classLoaderName;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
 	}
 
 	public MyTest16(ClassLoader parent, String classLoaderName) {
@@ -87,7 +89,7 @@ public class MyTest16 extends ClassLoader {
 	}
 
 	public static void test(ClassLoader classLoader) throws  Exception {
-		Class<?> clazz = classLoader.loadClass("com.wyz.classloader.MyTest1");
+		Class<?> clazz = classLoader.loadClass("com.wyz.classloader.MyTest1"); // 这个地方加载的是class文件。 从classpath读取的 所以现在这个读取 不是Mytest16里面的classloader 而是appclassloader加载的。
 		Object o = clazz.newInstance();
 		System.out.println(o);
 	}
