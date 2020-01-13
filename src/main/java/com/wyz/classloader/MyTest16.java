@@ -212,6 +212,7 @@ public class MyTest16 extends ClassLoader {
 		aClass2 = null;
 		myTest16 = null;
 		System.gc(); // [Unloading class com.wyz.classloader.MyTest1 0x00000007c0061028]
+		Thread.sleep(20000);
 		myTest16 = new MyTest16("myloader2");
 		myTest16.setPath("E:\\");
 		aClass2 = myTest16.loadClass("com.wyz.classloader.MyTest1");
