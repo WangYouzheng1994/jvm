@@ -101,7 +101,8 @@ public class MyTest16 extends ClassLoader {
 		System.out.println(o);*/
 
 		// MyLoader3Test();
-		MyLoader4Test();
+		// MyLoader4Test();
+		MyLoader6Test();
 	}
 
 	/**
@@ -191,7 +192,29 @@ public class MyTest16 extends ClassLoader {
 	 * @throws Exception
 	 */
 	public static void MyLoader5Test() throws Exception {
-		MyTest16 myTest16 = new MyTest16("myLoader");
+		// 两个不同classloader的实例加载同一个类。
+		MyTest16 myTest1 = new MyTest16("myLoader1");
+		MyTest16 myTest2 = new MyTest16("myLoader2");
 
+	}
+
+	/**
+	 * 关于类对象的卸载
+	 * 新增jvm参数 : -XX:+TraceClassUnloading
+	 * 利用java垃圾回收机制。
+	 * @throws Exception
+	 */
+	public static void MyLoader6Test() throws Exception {
+		MyTest16 myTest16 = new MyTest16("myLoader1");
+		myTest16.setPath("E:\\");
+		Class<?> aClass2 = myTest16.loadClass("com.wyz.classloader.MyTest1");
+		System.out.println(aClass2.hashCode());
+		aClass2 = null;
+		myTest16 = null;
+		System.gc(); // [Unloading class com.wyz.classloader.MyTest1 0x00000007c0061028]
+		myTest16 = new MyTest16("myloader2");
+		myTest16.setPath("E:\\");
+		aClass2 = myTest16.loadClass("com.wyz.classloader.MyTest1");
+		System.out.println(aClass2.hashCode());
 	}
 }
