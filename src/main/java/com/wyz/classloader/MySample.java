@@ -8,6 +8,6 @@ package com.wyz.classloader;
 public class MySample {
 	public MySample() {
 		System.out.println("MySample is loaded by :" + this.getClass().getClassLoader());
-		new MyCat();
+		new MyCat(); // 主动使用 MyCat 进行类的加载
 	}
 }
