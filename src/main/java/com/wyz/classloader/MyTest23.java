@@ -51,6 +51,13 @@ public class MyTest23 {
         /**
          * 返回的是系统类加载器 默认情况下  系统类加载器就是APPClassLoader， 但是jdk也提供了一些机制可以让我们来指定系统类加载器 "java.system.class.loader"
          */
-        ClassLoader.getSystemClassLoader();
+        System.out.println(ClassLoader.getSystemClassLoader());
+        /**
+         * 使用命令行的方式运行 java -Djava.system.class.loader=xxxxx
+         * 可以看到java.system.class.loader已经变成了我们指定的类加载器
+         *  但是上述类的加载还是Appclassloader 原因是 我们自定义的类加载器 的双亲 就是appClassloader，然后APPClassLoader 已经可以加载上述类了。
+         */
+        System.out.println(System.getProperty("java.system.class.loader")); // xxxxx
+
     }
 }
