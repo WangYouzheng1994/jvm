@@ -14,7 +14,7 @@ public class MyTest25 implements Runnable {
     }
     @Override
     public void run() {
-        ClassLoader classLoader = this.thread.getContextClassLoader();
+        ClassLoader classLoader = this.thread.getContextClassLoader(); // 是应用类加载器。 可以通过Launcher中的加载得知。
         this.thread.setContextClassLoader(classLoader);
         System.out.println("Class: " + classLoader.getClass());
         System.out.println("Parent: " + classLoader.getParent().getClass());
